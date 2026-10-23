@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarePoint | Smart Hospital</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-icon">✚</span><div><strong>CarePoint</strong><small>SMART HOSPITAL</small></div></div>
+    <p class="nav-label">WORKSPACE</p>
+    <button class="nav-item active" data-section="dashboard"><span>▦</span> Dashboard</button>
+    <button class="nav-item" data-section="patients"><span>♙</span> Patients</button>
+    <button class="nav-item" data-section="appointments"><span>▣</span> Appointments</button>
+    <button class="nav-item" data-section="emergency"><span>✚</span> Emergency Queue</button>
+    <button class="nav-item" data-section="history"><span>◷</span> Medical History</button>
+    <div class="sidebar-bottom"><div class="avatar">RB</div><div><strong>Hospital Admin</strong><small>Student project demo</small></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar"><div><p class="eyebrow">HOSPITAL MANAGEMENT</p><h1 id="page-title">Dashboard Overview</h1></div><div class="top-right"><span class="status-dot"></span> System online <span class="admin-chip">RB</span></div></header>
+    <section id="dashboard" class="section active">
+      <div class="welcome"><div><p class="eyebrow light">CAREPOINT OVERVIEW</p><h2>Better organisation. Better care.</h2><p>Manage patient records, appointments and priority cases in one place.</p></div><div class="welcome-mark">✚</div></div>
+      <div class="stat-grid">
+        <article class="stat-card"><div class="stat-top"><span>Total patients</span><span class="stat-icon blue">♙</span></div><strong id="stat-patients">0</strong><small>Registered patient records</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Appointments</span><span class="stat-icon purple">▣</span></div><strong id="stat-appointments">0</strong><small>In the waiting list</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Emergency cases</span><span class="stat-icon orange">✚</span></div><strong id="stat-emergencies">0</strong><small>Sorted by severity</small></article>
+      </div>
+      <div class="content-grid"><article class="panel"><div class="panel-heading"><div><h3>Quick actions</h3><p>Common tasks at your fingertips</p></div></div><div class="quick-grid"><button class="quick-action" data-go="patients"><span class="quick-icon blue">＋</span><b>Register patient</b><small>Add a new patient record</small></button><button class="quick-action" data-go="appointments"><span class="quick-icon purple">▣</span><b>Book appointment</b><small>Add to the appointment queue</small></button><button class="quick-action" data-go="emergency"><span class="quick-icon orange">✚</span><b>Add emergency</b><small>Prioritise urgent cases</small></button></div></article>
+      <article class="panel ds-panel"><div class="panel-heading"><div><h3>Data structures used</h3><p>Concepts demonstrated in this project</p></div></div><div class="ds-list"><div><span class="ds-symbol">A</span><span><b>ArrayList + HashMap</b><small>Patient storage and ID lookup</small></span></div><div><span class="ds-symbol">Q</span><span><b>Queue</b><small>First-in, first-out appointments</small></span></div><div><span class="ds-symbol">P</span><span><b>PriorityQueue</b><small>Highest severity handled first</small></span></div><div><span class="ds-symbol">L</span><span><b>LinkedList</b><small>Medical history entries</small></span></div></div></article></div>
+      <div class="notice"><span>ⓘ</span><div><b>Academic prototype only</b><p>This demo is for learning data structures. Do not enter real patient or sensitive medical information.</p></div></div>
+    </section>
+
+    <section id="patients" class="section">
+      <div class="section-intro"><div><h2>Patient records</h2><p>Register patients and search by ID or name.</p></div><button class="primary-btn" id="show-patient-form">＋ Add patient</button></div>
+      <form id="patient-form" class="panel form-grid hidden">
+        <label>Full name<input name="name" required placeholder="Enter patient name"></label><label>Age<input name="age" type="number" min="0" max="120" required placeholder="Age"></label>
+        <label>Gender<select name="gender" required><option value="">Select gender</option><option>Female</option><option>Male</option><option>Other</option></select></label>
+        <label>Phone number<input name="phone" placeholder="Optional phone"></label><label class="wide">Condition / reason for visit<input name="condition" placeholder="Brief note (demo only)"></label>
+        <div class="form-actions wide"><button type="button" class="secondary-btn" id="cancel-patient">Cancel</button><button class="primary-btn">Save patient</button></div>
+      </form>
+      <div class="panel"><div class="table-tools"><input id="patient-search" placeholder="Search by patient ID or name..."><span id="patient-count" class="muted">0 records</span></div><div class="table-wrap"><table><thead><tr><th>Patient ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Condition</th><th>Registered</th></tr></thead><tbody id="patient-table"><tr><td colspan="6" class="empty">No patients yet. Add a patient to get started.</td></tr></tbody></table></div></div>
+    </section>
+
+    <section id="appointments" class="section">
+      <div class="section-intro"><div><h2>Appointments</h2><p>Appointments are processed in first-in, first-out order.</p></div></div>
+      <form id="appointment-form" class="panel form-grid">
+        <label>Patient ID<input name="patientId" required placeholder="Example: P1001"></label><label>Doctor name<input name="doctor" required placeholder="Dr. name"></label><label>Date<input name="date" type="date" required></label><label>Time<input name="time" type="time" required></label><label class="wide">Reason for visit<input name="reason" placeholder="Optional"></label><div class="form-actions wide"><button class="primary-btn">＋ Book appointment</button></div>
+      </form>
+      <div class="panel"><div class="panel-heading"><div><h3>Appointment queue</h3><p>Oldest booking appears first</p></div><span class="pill">FIFO Queue</span></div><div class="table-wrap"><table><thead><tr><th>Queue</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Reason</th></tr></thead><tbody id="appointment-table"><tr><td colspan="6" class="empty">No appointments booked yet.</td></tr></tbody></table></div></div>
+    </section>
+
+    <section id="emergency" class="section">
+      <div class="section-intro"><div><h2>Emergency priority queue</h2><p>Severity 5 is most urgent; severity 1 is least urgent.</p></div><span class="pill danger-pill">PriorityQueue</span></div>
+      <form id="emergency-form" class="panel form-grid"><label>Patient ID<input name="patientId" required placeholder="Example: P1001"></label><label>Severity level<select name="severity" required><option value="">Choose severity</option><option value="5">5 — Critical</option><option value="4">4 — High</option><option value="3">3 — Moderate</option><option value="2">2 — Low</option><option value="1">1 — Minor</option></select></label><label class="wide">Case description<input name="description" required placeholder="Briefly describe the case (demo only)"></label><div class="form-actions wide"><button class="primary-btn danger-btn">＋ Add emergency case</button></div></form>
+      <div class="panel"><div class="panel-heading"><div><h3>Cases by priority</h3><p>Highest severity appears first</p></div></div><div class="table-wrap"><table><thead><tr><th>Case ID</th><th>Patient</th><th>Severity</th><th>Description</th><th>Status</th></tr></thead><tbody id="emergency-table"><tr><td colspan="5" class="empty">No emergency cases yet.</td></tr></tbody></table></div></div>
+    </section>
+
+    <section id="history" class="section">
+      <div class="section-intro"><div><h2>Medical history</h2><p>View a patient's recent demo activity stored in a linked list.</p></div></div>
+      <form id="history-form" class="panel inline-form"><label>Patient ID<input name="patientId" required placeholder="Example: P1001"></label><button class="primary-btn">View history</button></form>
+      <div class="panel"><div class="panel-heading"><div><h3>History timeline</h3><p id="history-subtitle">Enter a patient ID to view entries</p></div><span class="pill">LinkedList</span></div><div id="history-list" class="history-list"><p class="empty">No patient selected.</p></div></div>
+    </section>
+    <div id="toast" class="toast" role="status"></div>
+    <footer>CarePoint Smart Hospital <span>•</span> Data Structures Mini Project <span>•</span> Raino Binoy</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
